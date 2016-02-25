@@ -28,5 +28,15 @@ public class Buttons extends JFrame{
 		Menu.f.dispose();				
 		menu.menuStart();
 	}
+	
+	public void returnAdmin(){
+		Menu.f.dispose();			
+		menu.admin();
+	}
+	
+	public void returnCustomer(){
+		Menu.f.dispose();			
+		menu.customer(menu.e);	
+	}
 
 }

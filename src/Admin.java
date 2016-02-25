@@ -22,20 +22,15 @@ import javax.swing.SwingConstants;
 public class Admin extends JFrame{
 	
 	ArrayList<Customer> customerList = Menu.returnArray();
+	Menu menu = new Menu();
+	Buttons butt = new Buttons();
 	
 	public void bankCharges(){
 		
 		boolean loop = true;
 		
 		boolean found = false;
-		
-		ArrayList<Customer> response;
-		
-		Menu menu = new Menu();
 	
-		
-		System.out.println("this is the arraylist: " + customerList);
-		
 	
 		if(customerList.isEmpty()){
 			CustomerListEmpty();		
@@ -58,12 +53,8 @@ public class Admin extends JFrame{
 	    		loop = true;
 	    	}
 	    	else if(reply == JOptionPane.NO_OPTION) {
-	    		Menu.f.dispose();
 	    		loop = false;
-	    		
-	    		Menu menu1 = new Menu();
-	    	
-	    		menu1.admin();
+	    		butt.returnAdmin();
 	    	}
 	    }  
 	    else{
@@ -136,20 +127,13 @@ public class Admin extends JFrame{
 					}
 					
 					
-					Menu.f.dispose();				
-					Menu menu = new Menu();
-			    	
-		    		menu.admin();			
+					butt.returnAdmin();			
 				}		
 		     });
 			
 			returnButton.addActionListener(new ActionListener(  ) {
 				public void actionPerformed(ActionEvent ae) {
-					Menu.f.dispose();	
-					
-					Menu menu = new Menu();
-			    	
-		    		menu.menuStart();		
+					butt.returnButton();		
 				}
 		     });	
 			
@@ -194,12 +178,8 @@ public class Admin extends JFrame{
 	    	}
 	    	else if(reply == JOptionPane.NO_OPTION)
 	    	{
-	    		Menu.f.dispose();
 	    		loop = false;
-	    		
-	    		Menu menu1 = new Menu();
-	    	
-	    		menu1.admin();
+	    		butt.returnAdmin();
 	    	}
 	    }  
 	    else
@@ -286,20 +266,13 @@ public class Admin extends JFrame{
 					
 				 	}
 					
-				 	Menu.f.dispose();				
-					Menu menu = new Menu();
-			    	
-		    		menu.admin();				
+						butt.returnButton();			
 				}		
 		     });
 			
 			returnButton.addActionListener(new ActionListener(  ) {
 				public void actionPerformed(ActionEvent ae) {
-					Menu.f.dispose();
-					
-					Menu menu = new Menu();
-			    	
-		    		menu.menuStart();			
+					butt.returnButton();			
 				}
 		     });	
 			
@@ -408,7 +381,6 @@ public class Admin extends JFrame{
 		
 		cancelPanel.add(cancelButton, BorderLayout.SOUTH);
 		cancelPanel.add(saveButton, BorderLayout.SOUTH);
-	//	content.removeAll();
 		Container content = Menu.f.getContentPane();
 		content.setLayout(new GridLayout(2, 1));
 		content.add(textPanel, BorderLayout.NORTH);
@@ -436,9 +408,7 @@ public class Admin extends JFrame{
 		
 		cancelButton.addActionListener(new ActionListener(  ) {
 			public void actionPerformed(ActionEvent ae) {
-				Menu.f.dispose();
-				
-				menu.admin();				
+				butt.returnAdmin();
 			}		
 	     });		
 		}
@@ -491,7 +461,6 @@ public class Admin extends JFrame{
 		
 		
 		textPanel.add(textArea);
-//		menu.content.removeAll();
 		
 		
 		Container content = Menu.f.getContentPane();
@@ -500,8 +469,7 @@ public class Admin extends JFrame{
 		
 		returnButton.addActionListener(new ActionListener(  ) {
 			public void actionPerformed(ActionEvent ae) {
-				Menu.f.dispose();			
-				menu.admin();				
+				butt.returnAdmin();				
 			}		
 	     });	
 	}
@@ -640,8 +608,7 @@ public class Admin extends JFrame{
 		
 		cancel.addActionListener(new ActionListener(  ) {
 			public void actionPerformed(ActionEvent ae) {				
-				dispose();
-				menu.admin();
+				butt.returnAdmin();
 			}					     
 		});			
 		
@@ -813,20 +780,17 @@ public class Admin extends JFrame{
 				    } 
 		}
 	}
-	
-	Menu menu = new Menu();
+
 	public void CustomerListEmpty(){
 		JOptionPane.showMessageDialog(Menu.f, "There are no customers yet!"  ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
 		
-		Menu.f.dispose();
-		menu.admin();		
+		butt.returnAdmin();		
 	}
 	
 	public void CustomerAccountsEmpty(){
 		JOptionPane.showMessageDialog(Menu.f, "This customer has no accounts! \n The admin must add acounts to this customer."   ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
 
-		Menu.f.dispose();
-		menu.admin();		
+		butt.returnAdmin();	
 	}
 	
 	public static boolean isNumeric(String str)  // a method that tests if a string is numeric

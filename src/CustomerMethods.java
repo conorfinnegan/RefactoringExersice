@@ -25,6 +25,7 @@ public class CustomerMethods extends JFrame{
 	
 	ArrayList<Customer> customerList = Menu.returnArray();
 	Menu menu = new Menu();
+	Buttons butt = new Buttons();
 	
 	public void statement(){
 		Menu.f.dispose();
@@ -72,8 +73,7 @@ public class CustomerMethods extends JFrame{
 		
 		returnButton.addActionListener(new ActionListener(  ) {
 			public void actionPerformed(ActionEvent ae) {
-				Menu.f.dispose();			
-				menu.customer(menu.e);				
+				butt.returnCustomer();			
 			}		
 	     });										
 	}	

@@ -591,28 +591,6 @@ public class Menu extends JFrame{
 	public static ArrayList<Customer> returnArray(){
 		return(customerList);
 	}
-
-	
-	public void CustomerListEmpty(){
-		JOptionPane.showMessageDialog(f, "There are no customers yet!"  ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-		f.dispose();
-		admin();
-	}
-	
-	public void CustomerAccountsEmpty(){
-		JOptionPane.showMessageDialog(f, "This customer has no accounts! \n The admin must add acounts to this customer."   ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-		f.dispose();
-		admin();
-	}
-	
-	public void getArray(String response){
-		if(customerList.isEmpty()){
-			response = "true";
-		}
-		else{
-			response = "false";
-		}
-	}
 	
 	public static boolean isNumeric(String str)  // a method that tests if a string is numeric
 	{  
