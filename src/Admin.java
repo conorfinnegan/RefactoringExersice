@@ -266,7 +266,7 @@ public class Admin extends JFrame{
 					
 				 	}
 					
-						butt.returnButton();			
+				 	butt.returnAdmin();		
 				}		
 		     });
 			
