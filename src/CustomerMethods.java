@@ -24,10 +24,13 @@ import javax.swing.SwingConstants;
 public class CustomerMethods extends JFrame{
 	
 	ArrayList<Customer> customerList = Menu.returnArray();
-	Menu menu = new Menu();
-	Buttons butt = new Buttons();
+	CustomerAccount acc = Menu.returnAcc();
+
 	
 	public void statement(){
+		Menu menu = new Menu();
+		ButtonMenu butt = new ButtonMenu();
+		
 		Menu.f.dispose();
 		Menu.f = new JFrame("Customer Menu");
 		Menu.f.setSize(400, 600);
@@ -55,38 +58,36 @@ public class CustomerMethods extends JFrame{
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		textPanel.add(scrollPane);
 		
-		for (int i = 0; i < menu.acc.getTransactionList().size(); i ++)
-		{
-			textArea.append(menu.acc.getTransactionList().get(i).toString());
-			
+		for (int i = 0; i < acc.getTransactionList().size(); i ++){
+			textArea.append(acc.getTransactionList().get(i).toString());	
 		}
 		
 		textPanel.add(textArea);
-		menu.content.removeAll();
-		
 		
 		Container content = Menu.f.getContentPane();
 		content.setLayout(new GridLayout(1, 1));
-	//	content.add(label1);
 		content.add(textPanel);
-		//content.add(returnPanel);
 		
 		returnButton.addActionListener(new ActionListener(  ) {
 			public void actionPerformed(ActionEvent ae) {
-				butt.returnCustomer();			
+				Menu.f.dispose();
+				menu.customer(menu.e);			
 			}		
 	     });										
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public void lodgement(){
+		Menu menu = new Menu();
+		
 		boolean loop = true;
 		boolean on = true;
 		double balance = 0;
 
-		if(menu.acc instanceof CustomerCurrentAccount)
+		if(acc instanceof CustomerCurrentAccount)
 		{
 			int count = 3;
-			int checkPin = ((CustomerCurrentAccount) menu.acc).getAtm().getPin();
+			int checkPin = ((CustomerCurrentAccount) acc).getAtm().getPin();
 			loop = true;
 			
 			while(loop)
@@ -94,7 +95,7 @@ public class CustomerMethods extends JFrame{
 				if(count == 0)
 				{
 					JOptionPane.showMessageDialog(Menu.f, "Pin entered incorrectly 3 times. ATM card locked."  ,"Pin",  JOptionPane.INFORMATION_MESSAGE);
-					((CustomerCurrentAccount) menu.acc).getAtm().setValid(false);
+					((CustomerCurrentAccount) acc).getAtm().setValid(false);
 					menu.customer(menu.e); 
 					loop = false;
 					on = false;
@@ -123,7 +124,7 @@ public class CustomerMethods extends JFrame{
 			
 		}		if(on == true)
 				{
-			String balanceTest = JOptionPane.showInputDialog(Menu.f, "Enter amount you wish to lodge:");//the isNumeric method tests to see if the string entered was numeric. 
+			String balanceTest = JOptionPane.showInputDialog(Menu.f, "Enter amount you wish to lodge:");
 			if(isNumeric(balanceTest))
 			{
 				
@@ -139,8 +140,7 @@ public class CustomerMethods extends JFrame{
 			
 		
 		String euro = "\u20ac";
-		 menu.acc.setBalance(menu.acc.getBalance() + balance);
-		// String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+		 acc.setBalance(acc.getBalance() + balance);
 		 Date date = new Date();
 		 String date2 = date.toString();
 		 String type = "Lodgement";
@@ -150,22 +150,24 @@ public class CustomerMethods extends JFrame{
 			
 			
 			AccountTransaction transaction = new AccountTransaction(date2, type, amount);
-			menu.acc.getTransactionList().add(transaction);
+			acc.getTransactionList().add(transaction);
 			
 		 JOptionPane.showMessageDialog(Menu.f, balance + euro + " added do you account!" ,"Lodgement",  JOptionPane.INFORMATION_MESSAGE);
-		 JOptionPane.showMessageDialog(Menu.f, "New balance = " + menu.acc.getBalance() + euro ,"Lodgement",  JOptionPane.INFORMATION_MESSAGE);
+		 JOptionPane.showMessageDialog(Menu.f, "New balance = " + acc.getBalance() + euro ,"Lodgement",  JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
 	public void withdraw(){
+		Menu menu = new Menu();
+		
 		boolean loop = true;
 		boolean on = true;
 		double withdraw = 0;
 
-		if(menu.acc instanceof CustomerCurrentAccount)
+		if(acc instanceof CustomerCurrentAccount)
 		{
 			int count = 3;
-			int checkPin = ((CustomerCurrentAccount) menu.acc).getAtm().getPin();
+			int checkPin = ((CustomerCurrentAccount) acc).getAtm().getPin();
 			loop = true;
 			
 			while(loop)
@@ -173,7 +175,7 @@ public class CustomerMethods extends JFrame{
 				if(count == 0)
 				{
 					JOptionPane.showMessageDialog(Menu.f, "Pin entered incorrectly 3 times. ATM card locked."  ,"Pin",  JOptionPane.INFORMATION_MESSAGE);
-					((CustomerCurrentAccount) menu.acc).getAtm().setValid(false);
+					((CustomerCurrentAccount) acc).getAtm().setValid(false);
 					menu.customer(menu.e); 
 					loop = false;
 					on = false;
@@ -198,12 +200,7 @@ public class CustomerMethods extends JFrame{
 				}
 			
 			}
-			}
-
-		    	
-		    	
-		    
-			
+			}			
 			
 		}		if(on == true)
 				{
@@ -226,30 +223,28 @@ public class CustomerMethods extends JFrame{
 				JOptionPane.showMessageDialog(Menu.f, "500 is the maximum you can withdraw at a time." ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
 				withdraw = 0;
 			}
-			if(withdraw > menu.acc.getBalance())
+			if(withdraw > acc.getBalance())
 			{
 				JOptionPane.showMessageDialog(Menu.f, "Insufficient funds." ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
 				withdraw = 0;					
 			}
 		
 		String euro = "\u20ac";
-		 menu.acc.setBalance(menu.acc.getBalance()-withdraw);
-		   //recording transaction:
-	//		String date = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-		 Date date = new Date();
-		 String date2 = date.toString();
+		acc.setBalance(acc.getBalance()-withdraw);
+		Date date = new Date();
+		String date2 = date.toString();
 		 
-		 String type = "Withdraw";
-			double amount = withdraw;
+		String type = "Withdraw";
+		double amount = withdraw;
 			
-
-			AccountTransaction transaction = new AccountTransaction(date2, type, amount);
-			menu.acc.getTransactionList().add(transaction);
+		AccountTransaction transaction = new AccountTransaction(date2, type, amount);
+		System.out.println(transaction);
+		acc.getTransactionList().add(transaction);
 		 
 		 
 			
-		 JOptionPane.showMessageDialog(Menu.f, withdraw + euro + " withdrawn." ,"Withdraw",  JOptionPane.INFORMATION_MESSAGE);
-		 JOptionPane.showMessageDialog(Menu.f, "New balance = " + menu.acc.getBalance() + euro ,"Withdraw",  JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(Menu.f, withdraw + euro + " withdrawn." ,"Withdraw",  JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(Menu.f, "New balance = " + acc.getBalance() + euro ,"Withdraw",  JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	

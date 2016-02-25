@@ -20,23 +20,26 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Buttons extends JFrame{
-	
-	Menu menu = new Menu();
-	
-	public void returnButton(){
-		Menu.f.dispose();				
-		menu.menuStart();
+public class ButtonMenu extends JFrame {
+
+
+
+	public void returnButton() {
+		Menu menu1 = new Menu();
+		Menu.f.dispose();
+		menu1.menuStart();
 	}
-	
-	public void returnAdmin(){
-		Menu.f.dispose();			
-		menu.admin();
+
+	public void returnAdmin() {
+		Menu menu1 = new Menu();
+		Menu.f.dispose();
+		menu1.admin();
 	}
-	
-	public void returnCustomer(){
-		Menu.f.dispose();			
-		menu.customer(menu.e);	
+
+	public void returnCustomer() {
+		Menu menu1 = new Menu();
+		Menu.f.dispose();
+		menu1.customer(menu1.e);
 	}
 
 }

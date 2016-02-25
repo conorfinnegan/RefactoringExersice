@@ -39,6 +39,9 @@ public class CustomerAccount  {
 	
 	public ArrayList getTransactionList()
 	{
+		if(transactionList == null){
+			this.transactionList = new ArrayList();
+		}
 		return this.transactionList;
 	}
 
