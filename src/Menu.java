@@ -412,9 +412,7 @@ public class Menu extends JFrame{
 			
 				if(customerList.isEmpty())
 				{
-					JOptionPane.showMessageDialog(f, "There are no customers yet!"  ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-					f.dispose();
-					admin();
+					CustomerListEmpty();
 					
 				}
 				else
@@ -487,9 +485,7 @@ public class Menu extends JFrame{
 			
 						if(customer.getAccounts().isEmpty())
 						{
-							JOptionPane.showMessageDialog(f, "This customer has no accounts! \n The admin must add acounts to this customer."   ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-							f.dispose();
-							admin();
+							CustomerAccountsEmpty();
 						}
 						else
 						{
@@ -557,9 +553,7 @@ public class Menu extends JFrame{
 			
 				if(customerList.isEmpty())
 				{
-					JOptionPane.showMessageDialog(f, "There are no customers yet!"  ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-					f.dispose();
-					admin();
+					CustomerListEmpty();
 					
 				}
 				else
@@ -634,9 +628,7 @@ public class Menu extends JFrame{
 			
 						if(customer.getAccounts().isEmpty())
 						{
-							JOptionPane.showMessageDialog(f, "This customer has no accounts! \n The admin must add acounts to this customer."   ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-							f.dispose();
-							admin();
+							CustomerAccountsEmpty();
 						}
 						else
 						{
@@ -707,9 +699,7 @@ public class Menu extends JFrame{
 			
 				if(customerList.isEmpty())
 				{
-					JOptionPane.showMessageDialog(f, "There are no customers yet!"  ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-					f.dispose();
-					admin();
+					CustomerListEmpty();
 					
 				}
 				else
@@ -914,8 +904,7 @@ public class Menu extends JFrame{
 				
 				if(customerList.isEmpty())
 				{
-					JOptionPane.showMessageDialog(null, "There are currently no customers to display. ");
-					admin();
+					CustomerListEmpty();
 				}
 				else
 				{
@@ -1077,9 +1066,7 @@ public class Menu extends JFrame{
 				
 				if(customerList.isEmpty())
 				{
-					JOptionPane.showMessageDialog(f, "There are no customers yet!"  ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
-					f.dispose();
-					admin();
+					CustomerListEmpty();
 				}
 				else
 				{
@@ -1172,9 +1159,7 @@ public class Menu extends JFrame{
 				
 				if(customerList.isEmpty())
 				{
-					JOptionPane.showMessageDialog(null, "There are currently no customers to display. ");
-					dispose();
-					admin();
+					CustomerListEmpty();
 				}
 				else
 				{
@@ -1627,6 +1612,18 @@ public class Menu extends JFrame{
 	     });		}		
 	     });
 	}
+	}
+	
+	public void CustomerListEmpty(){
+		JOptionPane.showMessageDialog(f, "There are no customers yet!"  ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
+		f.dispose();
+		admin();
+	}
+	
+	public void CustomerAccountsEmpty(){
+		JOptionPane.showMessageDialog(f, "This customer has no accounts! \n The admin must add acounts to this customer."   ,"Oops!",  JOptionPane.INFORMATION_MESSAGE);
+		f.dispose();
+		admin();
 	}
 	
 	public static boolean isNumeric(String str)  // a method that tests if a string is numeric
