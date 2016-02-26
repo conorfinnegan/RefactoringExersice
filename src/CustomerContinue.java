@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 public class CustomerContinue {
 
 	public void continueCust() {
-		
+
 		Menu menu = new Menu();
 		CustomerMethods custMeth = new CustomerMethods();
 		ButtonMenu butt = new ButtonMenu();
-		
+
 		Menu.f.dispose();
 
 		Menu.f = new JFrame("Customer Menu");

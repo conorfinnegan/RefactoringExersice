@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 
 public class Admin extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	ArrayList<Customer> customerList = Menu.returnArray();
 	Menu menu = new Menu();
 	ButtonMenu butt = new ButtonMenu();
@@ -265,7 +266,6 @@ public class Admin extends JFrame {
 					loop = false;
 				}
 			}
-
 			Menu.f.dispose();
 
 			Menu.f.dispose();
@@ -277,7 +277,6 @@ public class Admin extends JFrame {
 					System.exit(0);
 				}
 			});
-
 			menu.firstNameLabel = new JLabel("First Name:", SwingConstants.LEFT);
 			menu.surnameLabel = new JLabel("Surname:", SwingConstants.LEFT);
 			menu.pPPSLabel = new JLabel("PPS Number:", SwingConstants.LEFT);
@@ -333,7 +332,6 @@ public class Admin extends JFrame {
 
 			saveButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ae) {
-
 					menu.customer.setFirstName(menu.firstNameTextField.getText());
 					menu.customer.setSurname(menu.surnameTextField.getText());
 					menu.customer.setPPS(menu.pPSTextField.getText());
@@ -383,7 +381,6 @@ public class Admin extends JFrame {
 
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		textPanel.add(scrollPane);
-
 		for (int a = 0; a < customerList.size(); a++) {
 			for (int b = 0; b < customerList.get(a).getAccounts().size(); b++) {
 				acc = customerList.get(a).getAccounts().get(b);
@@ -392,7 +389,6 @@ public class Admin extends JFrame {
 				}
 			}
 		}
-
 		textPanel.add(textArea);
 
 		Container content = Menu.f.getContentPane();
@@ -413,7 +409,6 @@ public class Admin extends JFrame {
 		if (customerList.isEmpty()) {
 			CustomerListEmpty();
 		} else {
-
 			JButton first, previous, next, last, cancel;
 			JPanel gridPanel, buttonPanel, cancelPanel;
 
@@ -580,7 +575,6 @@ public class Admin extends JFrame {
 					String[] choices = { "Current Account", "Deposit Account" };
 					String account = (String) JOptionPane.showInputDialog(null, "Please choose account type",
 							"Account Type", JOptionPane.QUESTION_MESSAGE, null, choices, choices[1]);
-
 					if (account.equals("Current Account")) {
 						boolean valid = true;
 						double balance = 0;
@@ -625,7 +619,7 @@ public class Admin extends JFrame {
 	}
 
 	public void deleteCustomer() {
-		boolean found = true, loop = true;
+		boolean found = true;
 
 		if (customerList.isEmpty()) {
 			CustomerListEmpty();
@@ -635,17 +629,14 @@ public class Admin extends JFrame {
 				if (aCustomer.getCustomerID().equals(customerID)) {
 					found = true;
 					menu.customer = aCustomer;
-					loop = false;
 				}
 			}
 			if (found == false) {
 				int reply = JOptionPane.showConfirmDialog(null, null, "User not found. Try again?",
 						JOptionPane.YES_NO_OPTION);
 				if (reply == JOptionPane.YES_OPTION) {
-					loop = true;
 				} else if (reply == JOptionPane.NO_OPTION) {
 					Menu.f.dispose();
-					loop = false;
 					menu.admin();
 				}
 			} else {
@@ -663,7 +654,7 @@ public class Admin extends JFrame {
 	}
 
 	public void deleteAccount() {
-		boolean found = true, loop = true;
+		boolean found = true;
 		{
 			Object customerID = JOptionPane.showInputDialog(Menu.f,
 					"Customer ID of Customer from which you wish to delete an account");
@@ -671,17 +662,14 @@ public class Admin extends JFrame {
 				if (aCustomer.getCustomerID().equals(customerID)) {
 					found = true;
 					menu.customer = aCustomer;
-					loop = false;
 				}
 			}
 			if (found == false) {
 				int reply = JOptionPane.showConfirmDialog(null, null, "User not found. Try again?",
 						JOptionPane.YES_NO_OPTION);
 				if (reply == JOptionPane.YES_OPTION) {
-					loop = true;
 				} else if (reply == JOptionPane.NO_OPTION) {
 					Menu.f.dispose();
-					loop = false;
 					menu.admin();
 				}
 			}

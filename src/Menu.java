@@ -7,6 +7,7 @@ import javax.swing.*;
 
 public class Menu extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private static ArrayList<Customer> customerList = new ArrayList<Customer>();
 	public int position = 0;
 	private String password;
@@ -32,7 +33,6 @@ public class Menu extends JFrame {
 
 	public void menuStart() {
 
-		ButtonMenu butt = new ButtonMenu();
 		StartMenuContinue smc = new StartMenuContinue();
 
 		f = new JFrame("User Type");

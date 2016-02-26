@@ -15,15 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class StartMenuContinue extends JFrame{
-	
+public class StartMenuContinue extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 	ArrayList<Customer> customerList = Menu.returnArray();
 	CustomerAccount acc = Menu.returnAcc();
 
-	public void newCustomer(){
+	public void newCustomer() {
 		ButtonMenu butt = new ButtonMenu();
 		Menu menu = new Menu();
-		
+
 		Menu.f.dispose();
 		Menu.f1 = new JFrame("Create New Customer");
 		Menu.f1.setSize(400, 300);
@@ -71,28 +72,21 @@ public class StartMenuContinue extends JFrame{
 				menu.add.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Menu.f1.dispose();
-
 						boolean loop = true;
 						while (loop) {
 							String password = JOptionPane.showInputDialog(Menu.f, "Enter 7 character Password;");
 							menu.setPassword(password);
-
 							if (password.length() != 7) {
-								JOptionPane.showMessageDialog(null, null,
-										"Password must be 7 charatcers long", JOptionPane.OK_OPTION);
+								JOptionPane.showMessageDialog(null, null, "Password must be 7 charatcers long",
+										JOptionPane.OK_OPTION);
 							} else {
 								loop = false;
 							}
 						}
-
 						ArrayList<CustomerAccount> accounts = new ArrayList<CustomerAccount>();
-
-						Customer customer = new Customer(menu.PPS, menu.surname, menu.firstName, menu.DOB, menu.CustomerID, menu.getPassword(),
-								accounts);
-
+						Customer customer = new Customer(menu.PPS, menu.surname, menu.firstName, menu.DOB,
+								menu.CustomerID, menu.getPassword(), accounts);
 						customerList.add(customer);
-
-						System.out.println(customerList);
 
 						JOptionPane.showMessageDialog(Menu.f,
 								"CustomerID = " + menu.CustomerID + "\n Password = " + menu.getPassword(),
@@ -110,7 +104,6 @@ public class StartMenuContinue extends JFrame{
 				butt.returnButton();
 			}
 		});
-
 		menu.panel2.add(menu.add);
 		menu.panel2.add(cancel);
 
@@ -118,16 +111,11 @@ public class StartMenuContinue extends JFrame{
 		content.add(menu.panel2, BorderLayout.SOUTH);
 
 		Menu.f1.setVisible(true);
-
 	}
-	
-	public void administrator(){
-		
+
+	public void administrator() {
 		ButtonMenu butt = new ButtonMenu();
-		Menu menu = new Menu();
-		
-		boolean loop = true, 
-				loop2 = true;
+		boolean loop = true, loop2 = true;
 		boolean cont = false;
 		while (loop) {
 			Object adminUsername = JOptionPane.showInputDialog(Menu.f, "Enter Administrator Username:");
@@ -160,28 +148,24 @@ public class StartMenuContinue extends JFrame{
 				cont = true;
 			}
 		}
-
 		if (cont) {
 			loop = false;
 			butt.returnAdmin();
-
 		}
 	}
-	
-	public void existingCustomer(){
-		
+
+	public void existingCustomer() {
+
 		ButtonMenu butt = new ButtonMenu();
 		Menu menu = new Menu();
-		
+
 		boolean loop = true, loop2 = true;
 		boolean cont = false;
 		boolean found = false;
 		Customer customer = null;
 		while (loop) {
 			Object customerID = JOptionPane.showInputDialog(Menu.f, "Enter Customer ID:");
-
 			for (Customer aCustomer : customerList) {
-
 				if (aCustomer.getCustomerID().equals(customerID)) {
 					found = true;
 					customer = aCustomer;
