@@ -4,15 +4,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import javax.swing.text.MaskFormatter;
-import java.util.ArrayList;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Menu extends JFrame {
 
@@ -22,7 +13,7 @@ public class Menu extends JFrame {
 	public Customer customer = null;
 	private static CustomerAccount acc = new CustomerAccount();
 	static JFrame f;
-	JFrame f1;
+	static JFrame f1;
 	JLabel firstNameLabel, surnameLabel, pPPSLabel, dOBLabel;
 	JTextField firstNameTextField, surnameTextField, pPSTextField, dOBTextField;
 	JLabel customerIDLabel, passwordLabel;
@@ -40,8 +31,9 @@ public class Menu extends JFrame {
 	}
 
 	public void menuStart() {
-		
+
 		ButtonMenu butt = new ButtonMenu();
+		StartMenuContinue smc = new StartMenuContinue();
 
 		f = new JFrame("User Type");
 		f.setSize(400, 300);
@@ -81,193 +73,16 @@ public class Menu extends JFrame {
 				String user = userType.getSelection().getActionCommand();
 
 				if (user.equals("New Customer")) {
-					f.dispose();
-					f1 = new JFrame("Create New Customer");
-					f1.setSize(400, 300);
-					f1.setLocation(200, 200);
-					f1.addWindowListener(new WindowAdapter() {
-						public void windowClosing(WindowEvent we) {
-							System.exit(0);
-						}
-					});
-					Container content = f1.getContentPane();
-					content.setLayout(new BorderLayout());
-
-					firstNameLabel = new JLabel("First Name:", SwingConstants.RIGHT);
-					surnameLabel = new JLabel("Surname:", SwingConstants.RIGHT);
-					pPPSLabel = new JLabel("PPS Number:", SwingConstants.RIGHT);
-					dOBLabel = new JLabel("Date of birth", SwingConstants.RIGHT);
-					firstNameTextField = new JTextField(20);
-					surnameTextField = new JTextField(20);
-					pPSTextField = new JTextField(20);
-					dOBTextField = new JTextField(20);
-					JPanel panel = new JPanel(new GridLayout(6, 2));
-					panel.add(firstNameLabel);
-					panel.add(firstNameTextField);
-					panel.add(surnameLabel);
-					panel.add(surnameTextField);
-					panel.add(pPPSLabel);
-					panel.add(pPSTextField);
-					panel.add(dOBLabel);
-					panel.add(dOBTextField);
-
-					panel2 = new JPanel();
-					add = new JButton("Add");
-
-					add.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-
-							PPS = pPSTextField.getText();
-							firstName = firstNameTextField.getText();
-							surname = surnameTextField.getText();
-							DOB = dOBTextField.getText();
-							password = "";
-
-							CustomerID = "ID" + PPS;
-
-							add.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									f1.dispose();
-
-									boolean loop = true;
-									while (loop) {
-										password = JOptionPane.showInputDialog(f, "Enter 7 character Password;");
-
-										if (password.length() != 7) {
-											JOptionPane.showMessageDialog(null, null,
-													"Password must be 7 charatcers long", JOptionPane.OK_OPTION);
-										} else {
-											loop = false;
-										}
-									}
-
-									ArrayList<CustomerAccount> accounts = new ArrayList<CustomerAccount>();
-
-									Customer customer = new Customer(PPS, surname, firstName, DOB, CustomerID, password,
-											accounts);
-
-									customerList.add(customer);
-
-									System.out.println(customerList);
-
-									JOptionPane.showMessageDialog(f,
-											"CustomerID = " + CustomerID + "\n Password = " + password,
-											"Customer created.", JOptionPane.INFORMATION_MESSAGE);
-									menuStart();
-									f.dispose();
-									menuStart();
-								}
-							});
-						}
-					});
-					JButton cancel = new JButton("Cancel");
-					cancel.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							butt.returnButton();
-						}
-					});
-
-					panel2.add(add);
-					panel2.add(cancel);
-
-					content.add(panel, BorderLayout.CENTER);
-					content.add(panel2, BorderLayout.SOUTH);
-
-					f1.setVisible(true);
-
+					smc.newCustomer();
 				}
 
 				if (user.equals("Administrator")) {
-					boolean loop = true, loop2 = true;
-					boolean cont = false;
-					while (loop) {
-						Object adminUsername = JOptionPane.showInputDialog(f, "Enter Administrator Username:");
-						if (!adminUsername.equals("admin")) {
-							int reply = JOptionPane.showConfirmDialog(null, null, "Incorrect Username. Try again?",
-									JOptionPane.YES_NO_OPTION);
-							if (reply == JOptionPane.YES_OPTION) {
-								loop = true;
-							} else if (reply == JOptionPane.NO_OPTION) {
-								loop = false;
-								loop2 = false;
-								butt.returnButton();
-							}
-						} else {
-							loop = false;
-						}
-					}
-					while (loop2) {
-						Object adminPassword = JOptionPane.showInputDialog(f, "Enter Administrator Password;");
-
-						if (!adminPassword.equals("admin11")) {
-							int reply = JOptionPane.showConfirmDialog(null, null, "Incorrect Password. Try again?",
-									JOptionPane.YES_NO_OPTION);
-							if (reply == JOptionPane.NO_OPTION) {
-								loop2 = false;
-								butt.returnButton();
-							}
-						} else {
-							loop2 = false;
-							cont = true;
-						}
-					}
-
-					if (cont) {
-						loop = false;
-						butt.returnAdmin();
-
-					}
+					smc.administrator();
 				}
 				if (user.equals("Customer")) {
-					boolean loop = true, loop2 = true;
-					boolean cont = false;
-					boolean found = false;
-					Customer customer = null;
-					while (loop) {
-						Object customerID = JOptionPane.showInputDialog(f, "Enter Customer ID:");
-
-						for (Customer aCustomer : customerList) {
-
-							if (aCustomer.getCustomerID().equals(customerID)) {
-								found = true;
-								customer = aCustomer;
-							}
-						}
-						if (found == false) {
-							int reply = JOptionPane.showConfirmDialog(null, null, "User not found. Try again?",
-									JOptionPane.YES_NO_OPTION);
-							if (reply == JOptionPane.YES_OPTION) {
-								loop = true;
-							} else if (reply == JOptionPane.NO_OPTION) {
-								loop = false;
-								loop2 = false;
-								butt.returnButton();
-							}
-						} else {
-							loop = false;
-						}
-					}
-					while (loop2) {
-						Object customerPassword = JOptionPane.showInputDialog(f, "Enter Customer Password;");
-
-						if (!customer.getPassword().equals(customerPassword)) {
-							int reply = JOptionPane.showConfirmDialog(null, null, "Incorrect password. Try again?",
-									JOptionPane.YES_NO_OPTION);
-							if (reply == JOptionPane.NO_OPTION) {
-								loop2 = false;
-								butt.returnButton();
-							}
-						} else {
-							loop2 = false;
-							cont = true;
-						}
-					}
-					if (cont) {
-						f.dispose();
-						loop = false;
-						customer(customer);
-					}
+					smc.existingCustomer();
 				}
+
 			}
 		});
 		f.setVisible(true);
@@ -467,7 +282,7 @@ public class Menu extends JFrame {
 	public static CustomerAccount returnAcc() {
 		return (acc);
 	}
-	
+
 	public static ArrayList<Customer> returnArray() {
 		return (customerList);
 	}
@@ -479,5 +294,13 @@ public class Menu extends JFrame {
 			return false;
 		}
 		return true;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

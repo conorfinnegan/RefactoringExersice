@@ -210,10 +210,9 @@ public class Admin extends JFrame {
 									if (isNumeric(interestString)) {
 										interest = Double.parseDouble(interestString);
 										loop = false;
-										acc.setBalance(
-												acc.getBalance() + (acc.getBalance() * (interest / 100)));
-										JOptionPane.showMessageDialog(Menu.f,
-												interest + "% interest applied. \n new balance = "
+										acc.setBalance(acc.getBalance() + (acc.getBalance() * (interest / 100)));
+										JOptionPane.showMessageDialog(
+												Menu.f, interest + "% interest applied. \n new balance = "
 														+ acc.getBalance() + euro,
 												"Success!", JOptionPane.INFORMATION_MESSAGE);
 									} else {
